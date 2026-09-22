@@ -234,15 +234,16 @@ iframe[title*="netlify" i]{
   .sound{width:36px;height:36px}
   .stage{
     align-items:start;
+    justify-items:start;
     padding:14px 0 10px;
     min-width:0;
-    width:auto;
+    width:100%;
     max-width:100%;
     overflow:hidden;
   }
   .terminal{
-    width:100%;
-    max-width:342px;
+    width:clamp(300px,calc(100vw - 28px),430px);
+    max-width:min(100%,342px);
     min-width:0;
     margin-inline:0 auto;
     min-height:min(690px,calc(100svh - 116px - env(safe-area-inset-top) - env(safe-area-inset-bottom)));
@@ -265,6 +266,8 @@ iframe[title*="netlify" i]{
   .step{
     padding:28px 18px 24px;
     min-width:0;
+    align-items:center;
+    text-align:center;
   }
   .step:not(.intro){padding-top:28px}
   .eyebrow{
@@ -291,6 +294,10 @@ iframe[title*="netlify" i]{
     line-height:1.55;
     overflow-wrap:break-word;
   }
+  .step .eyebrow,.step h1,.step h2,.step .sub,.step>.field,.step>.options,.step>.error,.step>.actions,.step>.micro{
+    margin-left:auto;
+    margin-right:auto;
+  }
   .field{
     height:58px;
     border-radius:15px;
@@ -305,12 +312,14 @@ iframe[title*="netlify" i]{
     box-shadow:0 14px 28px rgba(232,93,24,.23),inset 0 1px 0 rgba(255,255,255,.32);
   }
   .actions{margin-top:22px}
+  .actions{width:100%;justify-content:center}
   .options{gap:9px;margin-top:18px}
   .option{
     min-height:52px;
     padding:12px 14px;
     border-radius:14px;
     font-size:15px;
+    text-align:left;
   }
   .priority-auto{gap:8px;margin-top:16px}
   .priority-auto .option{min-height:50px}
@@ -332,6 +341,7 @@ iframe[title*="netlify" i]{
 @media(max-width:380px){
   .shell{padding-left:10px;padding-right:10px}
   .stage{max-width:100%}
+  .terminal{width:calc(100vw - 20px)}
   .terminal{max-width:calc(100vw - 44px)}
   .step{padding-left:18px;padding-right:18px}
   h1{font-size:clamp(31px,9.6vw,36px)}
