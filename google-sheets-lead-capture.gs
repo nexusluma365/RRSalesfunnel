@@ -45,6 +45,16 @@ function doPost(e) {
   }
 }
 
+function setupTravelLeadSheet() {
+  const sheet = getLeadSheet(SHEET_NAME);
+  ensureHeaders(sheet);
+  return {
+    ok: true,
+    sheetName: SHEET_NAME,
+    columns: HEADERS.length
+  };
+}
+
 function getLeadSheet(sheetName) {
   const spreadsheet = SPREADSHEET_ID
     ? SpreadsheetApp.openById(SPREADSHEET_ID)
@@ -60,9 +70,17 @@ function ensureHeaders(sheet) {
 
   if (!hasHeaders) {
     headerRange.setValues([HEADERS]);
-    headerRange.setFontWeight('bold');
-    sheet.setFrozenRows(1);
+    formatLeadSheet(sheet);
   }
+}
+
+function formatLeadSheet(sheet) {
+  const headerRange = sheet.getRange(1, 1, 1, HEADERS.length);
+  headerRange.setFontWeight('bold');
+  headerRange.setBackground('#f26a21');
+  headerRange.setFontColor('#ffffff');
+  sheet.setFrozenRows(1);
+  sheet.autoResizeColumns(1, HEADERS.length);
 }
 
 function toRow(payload) {

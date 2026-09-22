@@ -348,14 +348,20 @@ async function saveLead(lead){
 
   if(!LEADS_WEB_APP_URL) return {stored:false,reason:"missing_web_app_url"};
 
+  const body=JSON.stringify(lead);
+  if(navigator.sendBeacon){
+    const sent=navigator.sendBeacon(LEADS_WEB_APP_URL,new Blob([body],{type:"text/plain;charset=utf-8"}));
+    if(sent) return {stored:true,method:"sendBeacon"};
+  }
+
   await fetch(LEADS_WEB_APP_URL,{
     method:"POST",
     mode:"no-cors",
     headers:{"Content-Type":"text/plain;charset=utf-8"},
-    body:JSON.stringify(lead),
+    body,
     keepalive:true
   });
-  return {stored:true};
+  return {stored:true,method:"fetch"};
 }
 
 function tone(kind="ding"){
