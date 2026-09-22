@@ -246,7 +246,9 @@
   .questions{ background:linear-gradient(180deg,#FAF7F2 0%,#F7F1E9 100%); }
   .questions .step-inner{ padding-top:12rem; padding-bottom:6rem; }
   .qrow{ transition:transform .35s var(--ease), background .35s var(--ease), padding .35s var(--ease); border-radius:24px; }
-  .qrow:hover{ transform:scale(1.018); background:rgba(255,255,255,.56); padding-left:1.2rem; padding-right:1.2rem; }
+  @media (hover:hover) and (pointer:fine){
+    .qrow:hover{ transform:scale(1.018); background:rgba(255,255,255,.56); padding-left:1.2rem; padding-right:1.2rem; }
+  }
   .questions-close{ min-height:85vh; justify-content:center; position:relative; overflow:hidden; }
   .questions-close::before{ content:""; position:absolute; width:50vw; height:50vw; border-radius:50%; background:radial-gradient(circle,rgba(241,121,58,.22),transparent 68%); top:-18vw; right:-10vw; }
   .questions-close h3,.questions-close .cta-row{ position:relative; z-index:1; }
@@ -382,6 +384,7 @@
     padding: 0 clamp(1.5rem,5vw,4rem);
     background: var(--ink);
     color: var(--text-light);
+    contain: paint;
   }
   .reveal-intro__pin{
     position:sticky;
@@ -393,6 +396,7 @@
     justify-content:center;
     width:100%;
     padding: clamp(4.5rem, 8vh, 6rem) 0 clamp(2.8rem, 5vh, 4rem);
+    transform: translateZ(0);
   }
   .reveal-copy{
     transform: translate3d(0, 30px, 0);
@@ -561,7 +565,9 @@
     .app-brief{ justify-self:center; }
   }
   @media(max-width: 859px){
-    .reveal-intro{ min-height:210vh; }
+    body{ background-attachment:scroll; }
+    .reveal-intro{ min-height:210svh; overflow:hidden; }
+    .reveal-intro__pin{ min-height:100svh; }
     .app-brief{ text-align:center; max-width:540px; }
     .app-brief__points span{ justify-content:center; }
   }
@@ -729,7 +735,7 @@
   <div class="questions-close">
     <h3 class="reveal">Don't Want to Travel Alone? Now You Won't!</h3>
     <div class="cta-row reveal reveal-delay-2">
-      <a class="btn btn--light" href="#step3">See the reveal <span class="btn__arrow" aria-hidden="true">→</span></a>
+      <a class="btn btn--light" href="#step3">Get This App <span class="btn__arrow" aria-hidden="true">→</span></a>
     </div>
   </div>
 
@@ -886,7 +892,7 @@
     if (!revealIntro || reduceMotion.matches) return;
 
     const rect = revealIntro.getBoundingClientRect();
-    const viewport = window.innerHeight || document.documentElement.clientHeight;
+    const viewport = document.documentElement.clientHeight || window.innerHeight;
     const scrollable = Math.max(1, rect.height - viewport);
     const progress = clamp(-rect.top / scrollable, 0, 1);
     const revealProgress = easeOutCubic(clamp(progress / 0.34, 0, 1));
