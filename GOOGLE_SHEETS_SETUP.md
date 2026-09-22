@@ -42,8 +42,8 @@ const LEADS_WEB_APP_URL="https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/e
 
 ## Notes
 
-- Leave `SPREADSHEET_ID` blank if the script is created from inside the `Travel Leads` sheet.
-- If the script is standalone, paste the Google Sheet ID into `SPREADSHEET_ID`.
+- `SPREADSHEET_ID` is set to the `Travel Leads` spreadsheet ID from the sheet URL.
+- If you replace the spreadsheet, update `SPREADSHEET_ID` before deploying the script.
 - The website posts as `text/plain` to avoid browser preflight issues on static hosting.
 - The questionnaire uses `sendBeacon` first so the lead submission can finish while the user is redirected.
 
