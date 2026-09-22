@@ -13,6 +13,8 @@
 }
 *{box-sizing:border-box}
 html,body{margin:0;min-height:100%;font-family:Inter,-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;color:var(--ink)}
+button,input{-webkit-tap-highlight-color:transparent}
+button{touch-action:manipulation}
 body{
   min-height:100vh; overflow-x:hidden;
   background:
@@ -67,6 +69,7 @@ h2{font-size:clamp(32px,5vw,46px)}
 .error{min-height:18px;color:#b53c15;font-size:12px;margin-top:9px}
 .intro .sub{font-size:18px}.intro .next{margin-top:4px}
 .footer{text-align:center;color:#8b837c;font-size:12px;letter-spacing:.02em;padding-bottom:3px}
+.mobile-only{display:none}
 .loading{display:none;text-align:center;padding-top:60px}
 .loading.show{display:block}
 .loader{width:54px;height:54px;border:1px solid rgba(232,93,24,.18);border-top-color:var(--orange);border-radius:50%;margin:0 auto 25px;animation:spin .9s linear infinite}
@@ -161,6 +164,7 @@ body:after{
   border:1px solid rgba(255,255,255,.34);
   box-shadow:0 12px 30px rgba(232,93,24,.26),inset 0 1px 0 rgba(255,255,255,.35);
 }
+.next:active,.option:active{transform:translateY(1px) scale(.992)}
 .progress{background:rgba(242,106,33,.08)}
 .progress i{background:linear-gradient(90deg,#f05d17,#ff914f);box-shadow:0 0 14px rgba(242,106,33,.24)}
 .eyebrow{color:#df5817}
@@ -199,6 +203,143 @@ h1,h2{font-weight:650}
 }
 </style>
 
+<style id="mobile-premium-polish">
+[class*="netlify" i],
+[id*="netlify" i],
+[data-netlify],
+iframe[src*="netlify" i],
+iframe[title*="netlify" i]{
+  display:none!important;
+  visibility:hidden!important;
+  pointer-events:none!important;
+}
+@media(max-width:620px){
+  html,body{min-height:100svh}
+  body{background-attachment:scroll}
+  body:before{opacity:.82}
+  body:after{opacity:.38;filter:blur(22px)}
+  .shell{
+    min-height:100svh;
+    padding:calc(12px + env(safe-area-inset-top)) 12px calc(12px + env(safe-area-inset-bottom));
+    grid-template-rows:auto 1fr auto;
+    min-width:0;
+    overflow-x:hidden;
+  }
+  .topbar{
+    min-height:40px;
+    padding:0 2px;
+  }
+  .brand{font-size:14px;gap:9px}
+  .mark{width:30px;height:30px}
+  .sound{width:36px;height:36px}
+  .stage{
+    align-items:start;
+    padding:14px 0 10px;
+    min-width:0;
+    width:auto;
+    max-width:100%;
+    overflow:hidden;
+  }
+  .terminal{
+    width:100%;
+    max-width:342px;
+    min-width:0;
+    margin-inline:0 auto;
+    min-height:min(690px,calc(100svh - 116px - env(safe-area-inset-top) - env(safe-area-inset-bottom)));
+    border-radius:24px;
+    border-color:rgba(242,106,33,.24);
+    box-shadow:
+      0 22px 58px rgba(117,74,43,.13),
+      0 1px 0 rgba(255,255,255,.8),
+      inset 0 1px 0 rgba(255,255,255,.95);
+  }
+  .head{
+    padding:17px 18px;
+  }
+  .status{font-size:12px;letter-spacing:.01em}
+  .count{font-size:12px}
+  .viewport{
+    min-height:min(610px,calc(100svh - 188px - env(safe-area-inset-top) - env(safe-area-inset-bottom)));
+    min-width:0;
+  }
+  .step{
+    padding:28px 18px 24px;
+    min-width:0;
+  }
+  .step:not(.intro){padding-top:28px}
+  .eyebrow{
+    margin-bottom:12px;
+    font-size:11px;
+    letter-spacing:.18em;
+  }
+  h1{
+    font-size:clamp(32px,8.2vw,36px);
+    line-height:1.02;
+    letter-spacing:-.055em;
+    overflow-wrap:normal;
+  }
+  .mobile-only{display:block}
+  .step h2{
+    font-size:clamp(28px,8vw,35px);
+    line-height:1.03;
+    letter-spacing:-.05em;
+  }
+  .intro .sub,.step .sub{
+    margin-top:16px;
+    margin-bottom:24px;
+    font-size:16px;
+    line-height:1.55;
+    overflow-wrap:break-word;
+  }
+  .field{
+    height:58px;
+    border-radius:15px;
+    font-size:16px;
+  }
+  .next{
+    width:100%;
+    max-width:100%;
+    min-height:58px;
+    border-radius:17px;
+    font-size:17px;
+    box-shadow:0 14px 28px rgba(232,93,24,.23),inset 0 1px 0 rgba(255,255,255,.32);
+  }
+  .actions{margin-top:22px}
+  .options{gap:9px;margin-top:18px}
+  .option{
+    min-height:52px;
+    padding:12px 14px;
+    border-radius:14px;
+    font-size:15px;
+  }
+  .priority-auto{gap:8px;margin-top:16px}
+  .priority-auto .option{min-height:50px}
+  .micro{
+    margin-top:14px;
+    font-size:12px;
+    color:#887f77;
+  }
+  .footer{
+    max-width:100%;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    padding:4px 44px 0;
+    font-size:11px;
+    letter-spacing:.05em;
+  }
+}
+@media(max-width:380px){
+  .shell{padding-left:10px;padding-right:10px}
+  .stage{max-width:100%}
+  .terminal{max-width:calc(100vw - 44px)}
+  .step{padding-left:18px;padding-right:18px}
+  h1{font-size:clamp(31px,9.6vw,36px)}
+  .step h2{font-size:clamp(27px,8vw,34px)}
+  .intro .sub,.step .sub{font-size:15px}
+}
+</style>
+
 </head>
 <body>
 <div class="shell">
@@ -217,7 +358,7 @@ h1,h2{font-weight:650}
 
     <div class="step active intro" data-step="0">
       <div class="eyebrow">Personalized travel setup</div>
-      <h1>Planning a trip?<br>Let's make sure you're ready.</h1>
+      <h1>Planning a trip?<br>Let's make sure <span class="mobile-only"></span>you're ready.</h1>
       <p class="sub">Answer a few quick questions. We'll shape your travel setup around where you're going and what matters to you.</p>
       <button class="next" data-next>Plan My Trip&nbsp; →</button>
       <div class="micro">Takes about 30 seconds.</div>
@@ -311,6 +452,26 @@ const state={destination:"",concerns:[],timing:"",name:"",email:""};
 let current=0, soundOn=true, leadSubmitted=false;
 const steps=[...document.querySelectorAll(".step")], bar=document.getElementById("bar"), count=document.getElementById("count");
 const AudioCtx=window.AudioContext||window.webkitAudioContext; let ctx;
+
+function removeNetlifyBadge(){
+  const candidates=[...document.querySelectorAll("body *")];
+  candidates.forEach(el=>{
+    const text=(el.textContent||"").trim();
+    const marker=[
+      el.id,
+      el.className,
+      el.getAttribute("src"),
+      el.getAttribute("title"),
+      el.getAttribute("aria-label"),
+      text.length<80?text:""
+    ].join(" ").toLowerCase();
+    if(marker.includes("powered by netlify")||marker.includes("netlify badge")){
+      el.remove();
+    }
+  });
+}
+removeNetlifyBadge();
+new MutationObserver(removeNetlifyBadge).observe(document.body,{childList:true,subtree:true});
 
 function getParam(name){
   return new URLSearchParams(window.location.search).get(name)||"";
